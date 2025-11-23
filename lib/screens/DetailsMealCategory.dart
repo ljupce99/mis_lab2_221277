@@ -17,7 +17,9 @@ class MealCategory extends StatefulWidget{
 
 class _MealCategory extends State<MealCategory>{
 
-  late final List<Meal> meals;
+  List<Meal> meals =[];
+  List<Meal> filteredMeals =[];
+
   final ApiService _apiService=ApiService();
   bool _isLoading = true;
 
@@ -36,10 +38,22 @@ class _MealCategory extends State<MealCategory>{
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
-        padding: EdgeInsets.all(12),
-        child: MealGrid(meals: meals),
+          : Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(12),
+            child: TextField(
+              onSubmitted: _searchMeals,
+            ),
+          ),
 
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(12),
+              child: MealGrid(meals: filteredMeals),
+            ),
+          ),
+        ],
       ),
 
 
@@ -47,11 +61,38 @@ class _MealCategory extends State<MealCategory>{
 
 
   }
+  void _searchMeals(String search) async{
+
+    if (search.isEmpty) {
+      setState(() {
+        filteredMeals = meals;
+      });
+      return;
+    }
+
+    final list = await _apiService.searchMealCategoryList(search);
+
+    if (list == null || list.isEmpty) {
+      setState(() {
+        filteredMeals = [];
+      });
+    }
+
+    final sameCategory = list
+        .where((i) => i.category == widget.categori)
+        .toList();
+
+    setState(() {
+      filteredMeals = sameCategory;
+    });
+
+  }
   void _loadMealList(String categori) async {
     final list = await _apiService.loadMealList(categori);
 
     setState(() {
-      meals= list;
+      meals = list;
+      filteredMeals = list;
       _isLoading = false;
 
     });

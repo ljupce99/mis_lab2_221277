@@ -8,9 +8,9 @@ class MealCard extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // onTap: () {
-      //   Navigator.pushNamed(context, "/details", arguments: pokemon);
-      // },
+      onTap: () {
+        Navigator.pushNamed(context, "/mealdetails", arguments: meal.id.toString());
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           side: BorderSide(color: Colors.red.shade300, width: 3),
@@ -23,7 +23,7 @@ class MealCard extends StatelessWidget{
               SizedBox(
                   height: 180,
                   width: double.infinity,
-                  child: Image.network(meal.MealThumb,fit: BoxFit.cover,)
+                  child: Image.network(meal.mealThumb,fit: BoxFit.cover,)
               ),
               Divider(),
               Text(meal.name, style: TextStyle(fontSize: 14)),

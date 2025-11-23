@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mis_lab2_221277/models/MealDetails.dart';
 import 'package:mis_lab2_221277/screens/DetailsMealCategory.dart';
 import 'package:mis_lab2_221277/screens/HomeMeal.dart';
+import 'package:mis_lab2_221277/screens/MealDetailsscrean.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +25,10 @@ class MyApp extends StatelessWidget {
         "/mealcategory": (context) {
           final category = ModalRoute.of(context)!.settings.arguments as String;
           return MealCategory(categori: category);
+        },
+        "/mealdetails": (context) {
+          final idm = ModalRoute.of(context)!.settings.arguments as String;
+          return MealDetailsscrean(id: idm);
         },
 
       },

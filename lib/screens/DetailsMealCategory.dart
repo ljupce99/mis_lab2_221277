@@ -44,7 +44,14 @@ class _MealCategory extends State<MealCategory>{
             padding: EdgeInsets.all(12),
             child: TextField(
               onSubmitted: _searchMeals,
-            ),
+              decoration: InputDecoration(
+                hintText: "Search meals...",
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              ),
           ),
 
           Expanded(

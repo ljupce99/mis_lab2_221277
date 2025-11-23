@@ -33,15 +33,27 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("Meals Categorys"),
+        actions: [
+          Padding(
+              padding: EdgeInsets.only(right: 15),
+            child: TextButton(
+                onPressed: rendomMeal,
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.red.shade300,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Text("Rendom Meal",style: TextStyle(fontSize: 16,),)
+            ),
+          ),
+        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : Column(
         children: [
-          TextButton(
-              onPressed: rendomMeal,
-              child: Text("Get rendom meal",style: TextStyle(fontSize: 14,),)
-          ),
+
           Expanded(
             child: Padding(
               padding: EdgeInsets.all(12),

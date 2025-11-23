@@ -8,6 +8,25 @@ import 'package:mis_lab2_221277/models/MealDetails.dart';
 
 
 class ApiService {
+  Future<String> getRendomMeal() async {
+
+    final detailResponse = await http.get(
+      Uri.parse('https://www.themealdb.com/api/json/v1/1/random.php'),
+    );
+
+    String id='';
+
+    if (detailResponse.statusCode == 200) {
+      final detailData = json.decode(detailResponse.body);
+
+      final meal = detailData['meals'][0];
+      id = meal['idMeal'].toString();
+
+
+    }
+
+    return id;
+  }
 
   Future<MealDetails> getMealDetails(String id) async {
     List<MealDetails> mealList=[];

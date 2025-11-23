@@ -36,16 +36,33 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
-        padding: EdgeInsets.all(12),
-        child: MealCategorysGrid(list: mealscategorys),
+          : Column(
+        children: [
+          TextButton(
+              onPressed: rendomMeal,
+              child: Text("Get rendom meal",style: TextStyle(fontSize: 14,),)
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(12),
+              child: MealCategorysGrid(list: mealscategorys),
 
+            ),
+          ),
+
+        ],
+        
       ),
+      
 
 
     );
 
 
+  }
+  void rendomMeal() async {
+    String idM = await _apiService.getRendomMeal();
+    Navigator.pushNamed(context, "/mealdetails", arguments: idM);
   }
 
   void _loadMealCategorysList() async {
